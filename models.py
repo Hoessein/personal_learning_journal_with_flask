@@ -8,7 +8,7 @@ from peewee import *
 DATABASE = SqliteDatabase('social.db')
 
 
-class User(UserMixin, Model):
+class Post(Model):
     title = CharField(unique=True)
     date = DateField()
     time_spent = CharField(max_length=100)
@@ -18,10 +18,15 @@ class User(UserMixin, Model):
 
     class Meta:
         database = DATABASE
-        order_by =('-posted_at',)
 
+class User(UserMixin, Model):
+    username = CharField(unique=True)
+    password = CharField()
+
+    class Meta:
+        database = DATABASE
 
 def initialize():
     DATABASE.connect()
-    DATABASE.create_tables([User], safe=True)
+    DATABASE.create_tables([Post, User], safe=True)
     DATABASE.close()

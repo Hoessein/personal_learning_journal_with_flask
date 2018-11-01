@@ -7,21 +7,21 @@
         <link href="https://fonts.googleapis.com/css?family=Cousine:400" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Work+Sans:600" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="stylesheet" href="css/normalize.css">
-        <link rel="stylesheet" href="css/site.css">
+        <link rel="stylesheet" href="static/css/normalize.css">
+        <link rel="stylesheet" href="static/css/site.css">
     </head>
     <body>
-        <header>
+        <header> {% block title %} {% endblock %}
             <div class="container">
                 <div class="site-header">
-                    <a class="logo" href="index.html"><i class="material-icons">library_books</i></a>
-                    <a class="button icon-right" href="new.html"><span>New Entry</span> <i class="material-icons">add</i></a>
+                    <a class="logo" href="{{ url_for('index') }}"><i class="material-icons">library_books</i></a>
+                    <a class="button icon-right" href="{{ url_for('new') }}"><span>New Entry</span> <i class="material-icons">add</i></a>
                 </div>
             </div>
         </header>
-        <section>
-
+                {% block content %} {% endblock %}
         <footer>
+                {% block footer %} {% endblock %}
             <div>
                 &copy; MyJournal
             </div>

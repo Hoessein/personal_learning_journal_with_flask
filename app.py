@@ -92,16 +92,14 @@ def edit_post(post_id):
 
     return render_template('new.html', form=form, legend='Edit Post')
 
+
+
 @app.route('/detail/<int:post_id>/delete', methods=['POST'])
 def delete_post(post_id):
     post = models.User.get_by_id(post_id)
     post.delete_instance()
     flash('You post has been deleted', "success")
     return redirect(url_for('index'))
-
-
-
-
 
 
 if __name__ == '__main__':
