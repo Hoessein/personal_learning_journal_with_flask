@@ -1,10 +1,9 @@
-from flask_wtf import Form
-from wtforms import StringField, PasswordField, TextAreaField, DateField, SubmitField
+from wtforms import TextAreaField, DateField
 from wtforms.validators import DataRequired, Regexp, ValidationError, Email, Length, EqualTo
 
 from models import User
 
-from flask_wtf import Form
+from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField
 from wtforms.validators import (DataRequired, Regexp, ValidationError, Email,
                                 Length, EqualTo)
@@ -22,11 +21,16 @@ def email_exists(form, field):
         raise ValidationError('User with that email already exists.')
 
 
-class PostForm(Form):
-    title = StringField('title', validators=[DataRequired()])
-    date = DateField('date', validators=[DataRequired()])
-    time_spent = StringField('time', validators=[DataRequired()])
-    what_i_learned = TextAreaField('learned', validators=[DataRequired()])
-    resources_to_remember = TextAreaField('resources', validators=[DataRequired()])
-    submit = SubmitField('Submit')
+class PostForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()])
+    date = DateField('Date', validators=[DataRequired()])
+    time_spent = StringField('Time', validators=[DataRequired()])
+    what_i_learned = TextAreaField('Learned', validators=[DataRequired()])
+    resources_to_remember = TextAreaField('Resources', validators=[DataRequired()])
+
+
+class LoginForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+
 

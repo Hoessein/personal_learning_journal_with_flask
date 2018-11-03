@@ -7,16 +7,23 @@
         <link href="https://fonts.googleapis.com/css?family=Cousine:400" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Work+Sans:600" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="stylesheet" href="static/css/normalize.css">
-        <link rel="stylesheet" href="static/css/site.css">
+        <link rel="stylesheet" href="/static/css/normalize.css">
+        <link rel="stylesheet" href="/static/css/site.css">
     </head>
     <body>
         <header> {% block title %} {% endblock %}
             <div class="container">
-                <div class="site-header">
                     <a class="logo" href="{{ url_for('index') }}"><i class="material-icons">library_books</i></a>
-                    <a class="button icon-right" href="{{ url_for('new') }}"><span>New Entry</span> <i class="material-icons">add</i></a>
-                </div>
+
+                    {% if current_user.is_authenticated %}
+                        <a class="button icon-right" href="{{ url_for('new_post') }}"><span>New Entry</span> <i class="material-icons">add</i></a>
+
+                        <a class="button icon-right" href="{{ url_for('logout') }}"><span>Log Out</span> <i class="material-icons">add</i></a>
+                    {% else %}
+                        <a class="button icon-right" href="{{ url_for('login') }}"><span>Log In</span> <i class="material-icons">add</i></a>
+
+                    {% endif %}
+
             </div>
         </header>
                 {% block content %} {% endblock %}

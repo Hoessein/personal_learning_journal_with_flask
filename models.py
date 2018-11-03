@@ -19,12 +19,24 @@ class Post(Model):
     class Meta:
         database = DATABASE
 
+
 class User(UserMixin, Model):
     username = CharField(unique=True)
     password = CharField()
+    is_admin = BooleanField(default=False)
 
     class Meta:
         database = DATABASE
+
+    @classmethod
+    def create_user(cls, username, password, admin=False):
+        try:
+            cls.create(
+                username=username,
+                password=generate_password_hash(password),
+                is_admin=admin)
+        except IntegrityError:
+            raise ValueError("Only admin is allowed")
 
 def initialize():
     DATABASE.connect()
