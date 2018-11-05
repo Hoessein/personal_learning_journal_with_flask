@@ -1,27 +1,31 @@
 {% extends "layout.html" %}
 
 {% block content %}
-
 {% if stream %}
 
     {% for post in stream %}
-
     <section>
         <div class="container">
             <div class="entry-list">
                 <article>
                     <h2><a href="{{ url_for('detail', post_id=post.id) }}">{{ post.title }}</a></h2>
-                    <time datetime="datetime">{{ post.posted_at.strftime('%d-%m-%Y %H:%M') }} </time></article>
+                    <time datetime="datetime">{{ post.posted_at.strftime('%d-%m-%Y %H:%M') }} </time>
+                </article>
             </div>
         </div>
     </section>
-
     {% endfor %}
-
 {% else %}
 
-    <p>There are no posts made yet. Log in to make one! </p>
+<section>
+    <div class="container">
+        <div class="entry-list">
+            <article>
+                <p>There are no posts made yet. Log in to make one! </p>
+            </article>
+        </div>
+    </div>
+</section>
 
 {% endif %}
-
 {% endblock %}

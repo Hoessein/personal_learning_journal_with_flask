@@ -60,6 +60,11 @@ footer {
 	padding-right: 30px;
 	top: -10px;
 }
+.button.icon-right2 {
+    background: #FFF;
+    top: -10px;
+    color: #404a49;
+}
 .button.icon-left {
 	padding-left: 30px;
 	top: -10px;
@@ -135,7 +140,6 @@ ul li a {
 /* ==========================================================================
    Page Styles
    ========================================================================== */
-
 .entry-list,
 .edit-entry,
 .new-entry {
@@ -225,9 +229,37 @@ input[type=submit] {
 	margin-right: 5px;
 }
 
+.main-container {
+  float: left;
+  position: relative;
+  left: 50%;
+}
+.fixer-container {
+  float: left;
+  position: relative;
+  left: -50%;
+}
 
+/*Notifications*/
+.notification {
+  text-align: center;
+  padding: 10px 20px;
+  border-radius: 4px;
+  color: #ffffff;
+}
+.success {
+  background: #678f89;
+  color: #ffffff;
+  margin-top: 10px;
 
+}
+.error {
+  background: #ffbf00;
+  color: #ffffff;
+  margin-bottom: 20px;
+  top: -10px;
 
+}
 
 
 

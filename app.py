@@ -60,7 +60,8 @@ def new_post():
 
 @app.route('/')
 def index():
-    stream = models.Post.select().limit(100)
+    stream = models.Post.select().limit(5)
+    stream.order_by(models.Post.posted_at.asc())
     return render_template('index.html', stream=stream)
 
 
@@ -123,8 +124,14 @@ def login():
                 flash("You've been logged in!", "success")
                 return redirect(url_for('index'))
             else:
-                flash("Your email or password doesn't match!", "error")
+                flash("Your username or password doesn't match!", "error")
     return render_template('login.html', form=form)
+
+
+@app.route('/entries')
+def list():
+    stream = models.Post.select().limit(100)
+    return render_template('list.html', stream=stream)
 
 
 @app.route('/logout')
@@ -133,6 +140,7 @@ def logout():
     logout_user()
     flash("You've been logged out! Come back soon!", "success")
     return redirect(url_for('index'))
+
 
 @app.errorhandler(404)
 def not_found(error):

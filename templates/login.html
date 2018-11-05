@@ -8,6 +8,9 @@
     {% for field in form %}
         {{ render_field(field) }}
     {% endfor %}
-    <input type="submit" value="Login" class="button">
+    <div class="edit">
+        <input type="submit" value="Login" class="button" style="float: left">
+    </div>
 </form>
 {% endblock %}
+
