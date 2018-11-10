@@ -30,7 +30,7 @@ def load_user(userid):
 def before_request():
     """Connect to the database before each request"""
     g.db = models.DATABASE
-    g.db.connect()
+    g.db.connect(reuse_if_open=True)
     g.user = current_user
 
 
@@ -75,6 +75,7 @@ def detail(post_id):
 
 
 @app.route('/detail/<int:post_id>/edit', methods=('GET', 'POST'))
+@login_required
 def edit_post(post_id):
     try:
         post = models.Post.get_by_id(post_id)
@@ -103,6 +104,7 @@ def edit_post(post_id):
 
 
 @app.route('/detail/<int:post_id>/delete', methods=['POST', 'GET'])
+@login_required
 def delete_post(post_id):
     post = models.Post.get_by_id(post_id)
     post.delete_instance()
@@ -139,19 +141,18 @@ def list():
 def logout():
     logout_user()
     flash("You've been logged out! Come back soon!", "success")
-    return redirect(url_for('index'))
 
 
 @app.errorhandler(404)
 def not_found(error):
-    return render_template('404.html'),404
+    return render_template('404.html'), 404
 
 
 if __name__ == '__main__':
     models.initialize()
     try:
         models.User.create_user(
-            username='Terster',
+            username='Tester',
             password='Password',
             admin=True
         )

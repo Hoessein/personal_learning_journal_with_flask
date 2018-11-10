@@ -9,7 +9,7 @@ DATABASE = SqliteDatabase('social.db')
 
 
 class Post(Model):
-    title = CharField(unique=True)
+    title = CharField()
     date = DateField()
     time_spent = CharField(max_length=100)
     what_i_learned = TextField()
