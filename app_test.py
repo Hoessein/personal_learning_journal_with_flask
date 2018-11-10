@@ -23,7 +23,6 @@ FAKE_USER_DATA = {
 class SetupTearDownMixin:
     @classmethod
     def setUpClass(cls):
-        # ------ ADDED THIS -------
         TEST_DB.bind(MODELS, bind_refs=False, bind_backrefs=False)
         TEST_DB.connect()
         TEST_DB.create_tables(MODELS)
@@ -41,25 +40,7 @@ class SetupTearDownMixin:
         TEST_DB.close()
 
 
-class UserModelTestCase(SetupTearDownMixin, unittest.TestCase):
-
-    # @staticmethod
-    # def create_user():
-
-    #     User.create_user(
-    #         username='Tester',
-    #         password='Password'
-    #     )
-
-    def test_create_user(self):
-        self.assertEqual(User.select().count(), 1)
-        self.assertNotEqual(
-            User.select().get().password,
-            'password'
-        )
-
-
-class ViewTestCase(SetupTearDownMixin, unittest.TestCase):
+class UserTestCase(SetupTearDownMixin, unittest.TestCase):
 
     def setUp(self):
         app.app.config['TESTING'] = True
@@ -93,73 +74,57 @@ class ViewTestCase(SetupTearDownMixin, unittest.TestCase):
         self.assertIn('add', rv.get_data(as_text=True).lower())
 
 
-class PostModelTestCase(SetupTearDownMixin, unittest.TestCase):
+class ViewTestCase(SetupTearDownMixin, unittest.TestCase):
 
     def setUp(self):
         app.app.config['TESTING'] = True
         app.app.config['WTF_CSRF_ENABLED'] = False
         self.app = app.app.test_client()
 
-    def test_empty_database(self):
+    def test_001_empty_database(self):
         rv = self.app.get('/')
         self.assertIn("there are no posts made yet. log in to make one!", rv.get_data(as_text=True).lower())
 
-    def test_post_on_homepage(self):
-        rv = self.app.post('/login', data=USER_DATA)
-        rv = self.app.get('/')
-        self.assertNotIn("there are no posts made yet. log in to make one!", rv.get_data(as_text=True).lower())
-        self.assertIn('test', rv.get_data(as_text=True).lower())
-
-
-    def test_post_create(self):
+    def test_002_post_creation(self):
         post_data = {
-            'title': 'Test',
-            'date': '2015-09-09',
+            'title': 'test',
+            'date': '09-09-2015',
             'time_spent': '50 minutes',
             'what_i_learned': 'A lot of stuff',
-            'resources_to_remember': 'Revise, alot'
+            'resources_to_remember': 'Revise, a lot'
         }
-
-        rv = self.app.post('/login', data=USER_DATA)
+        self.app.post('/login', data=USER_DATA)
         rv = self.app.post('/new', data=post_data)
         self.assertEqual(rv.status_code, 302)
         self.assertEqual(rv.location, 'http://localhost/')
         self.assertEqual(Post.select().count(), 1)
 
-    def test_zedit_post(self):
+    def test_003_post_on_homepage(self):
+        self.app.post('/login', data=USER_DATA)
+        rv = self.app.get('/')
+        self.assertNotIn("there are no posts made yet. log in to make one!", rv.get_data(as_text=True).lower())
+        self.assertIn('test', rv.get_data(as_text=True).lower())
+
+    def test_004_post_edit_post(self):
         post_data1 = {
             'title': 'tesfddfasadfdafsdafsste',
-            'date': '2015-09-09',
+            'date': '09-09-2015',
             'time_spent': '50 minutes',
             'what_i_learned': 'A lot of stuff',
             'resources_to_remember': 'Revise, alot'
         }
 
-        rv = self.app.post('/login', data=USER_DATA)
-        rv = self.app.post('/detail/1/edit', data=post_data1)
+        self.app.post('/login', data=USER_DATA)
+        self.app.post('/detail/1/edit', data=post_data1)
         rv = self.app.get('/')
         self.assertIn(post_data1['title'], rv.get_data(as_text=True).lower())
 
-
-    def test_delete_post(self):
-        post_data = {
-            'title': 'teste',
-            'date': '2015-09-09',
-            'time_spent': '50 minutes',
-            'what_i_learned': 'A lot of stuff',
-            'resources_to_remember': 'Revise, alot'
-        }
-
-        rv = self.app.post('/login', data=USER_DATA)
-        rv = self.app.post('/new', data=post_data)
-        rv = self.app.get('detail/1/delete')
+    def test_005_delete_post(self):
+        self.app.post('/login', data=USER_DATA)
+        self.app.get('detail/1/delete')
         rv = self.app.get('/')
         self.assertIn("there are no posts made yet. log in to make one!", rv.get_data(as_text=True).lower())
         self.assertEqual(Post.select().count(), 0)
-
-
-
-#datetime in form posting should be date of today prefilled.
 
 
 if __name__ == '__main__':
