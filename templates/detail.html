@@ -6,7 +6,7 @@
         <div class="entry-list single">
             <article>
                 <h1>{{ post.title }}</h1>
-                <time datetime="2016-01-31">{{ post.posted_at.strftime('%d-%m-%Y %H:%M') }} </time>
+                <time datetime="2016-01-31">{{ post.date.strftime('%d %B %Y') }} </time>
                 <div class="entry">
                     <h3>Time Spent: </h3>
                     <p>{{ post.time_spent }}</p>
@@ -24,9 +24,10 @@
     </div>
      {% if current_user.is_authenticated %}
         <div class="edit">
-            <p><a href="{{ url_for('edit_post', post_id=post.id) }}">Edit Post</a> |
+            <span><a href="{{ url_for('edit_post', post_id=post.id) }}">Edit Post</a>          |
 
-            <a href="{{ url_for('delete_post', post_id=post.id) }}" class="edit">Delete Post</a></p>
+
+                <a href="{{ url_for('delete_post', post_id=post.id) }}" class="edit">Delete Post</a></span>
         </div>
      {% endif %}
 

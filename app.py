@@ -98,7 +98,7 @@ def edit_post(post_id):
             form.what_i_learned.data = post.what_i_learned
             form.resources_to_remember.data = post.resources_to_remember
 
-        return render_template('new_post.html', form=form, legend='Edit Post')
+        return render_template('edit.html', form=form, legend='Edit Post', post=post)
     except models.DoesNotExist:
         abort(404)
 
@@ -135,13 +135,12 @@ def list():
     stream = models.Post.select().limit(100)
     return render_template('list.html', stream=stream)
 
-
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
     flash("You've been logged out! Come back soon!", "success")
-
+    return redirect(url_for('index'))
 
 @app.errorhandler(404)
 def not_found(error):

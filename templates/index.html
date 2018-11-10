@@ -9,7 +9,7 @@
             <div class="entry-list">
                 <article>
                     <h2><a href="{{ url_for('detail', post_id=post.id) }}">{{ post.title }}</a></h2>
-                    <time datetime="datetime">{{ post.posted_at.strftime('%d-%m-%Y %H:%M') }} </time>
+                    <time datetime="datetime">{{ post.date.strftime('%d %B %Y') }} </time>
                 </article>
             </div>
         </div>

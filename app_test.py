@@ -75,10 +75,11 @@ class ViewTestCase(SetupTearDownMixin, unittest.TestCase):
         rv = self.app.post('/login', data=FAKE_USER_DATA)
         self.assertEqual(rv.status_code, 200)
 
-    # def test_logout(self):
-    #     rv = self.app.get('/logout')
-    #     self.assertEqual(rv.status_code, 302)
-    #     self.assertEqual(rv.location, 'http://localhost/')
+    def test_logout(self):
+        rv = self.app.post('/login', data=USER_DATA)
+        rv = self.app.get('/logout')
+        self.assertEqual(rv.status_code, 302)
+        self.assertEqual(rv.location, 'http://localhost/')
 
     def test_logged_out_menu(self):
         rv = self.app.get('/')

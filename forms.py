@@ -23,14 +23,15 @@ def email_exists(form, field):
 
 class PostForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
-    date = DateField('Date', validators=[DataRequired()])
+    date = DateField('Date: DD-MM-YYYY', validators=[DataRequired()], format='%d-%m-%Y')
     time_spent = StringField('Time', validators=[DataRequired()])
-    what_i_learned = TextAreaField('Learned', validators=[DataRequired()])
-    resources_to_remember = TextAreaField('Resources', validators=[DataRequired()])
+    what_i_learned = TextAreaField('What I Learned', validators=[DataRequired()])
+    resources_to_remember = TextAreaField('Resources To Remember', validators=[DataRequired()])
 
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
+
 
 
