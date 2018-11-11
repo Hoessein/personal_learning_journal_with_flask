@@ -16,6 +16,7 @@
 
                     <a class="logo" href="{{ url_for('index') }}"><i class="material-icons">library_books</i></a>
                     <a class="button icon-left" href="{{ url_for('list') }}"><i class="material-icons">library_books</i>Entries</a>
+                    <!--<h1 class="h1container">This is heading 1</h1>-->
 
                     {% if current_user.is_authenticated %}
 
@@ -27,7 +28,7 @@
 
                     {% endif %}
                 <div class="main-container">
-                    <div class="fixer-container">
+                    <div class="fixer-container" align="center">
                     {% with messages = get_flashed_messages(with_categories=True) %}
                         {% if messages %}
                             {% for category, message in messages %}

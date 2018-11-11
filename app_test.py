@@ -57,7 +57,7 @@ class UserTestCase(SetupTearDownMixin, unittest.TestCase):
         self.assertEqual(rv.status_code, 200)
 
     def test_logout(self):
-        rv = self.app.post('/login', data=USER_DATA)
+        self.app.post('/login', data=USER_DATA)
         rv = self.app.get('/logout')
         self.assertEqual(rv.status_code, 302)
         self.assertEqual(rv.location, 'http://localhost/')
@@ -83,7 +83,7 @@ class ViewTestCase(SetupTearDownMixin, unittest.TestCase):
 
     def test_001_empty_database(self):
         rv = self.app.get('/')
-        self.assertIn("there are no posts made yet. log in to make one!", rv.get_data(as_text=True).lower())
+        self.assertIn("there are no posts made yet", rv.get_data(as_text=True).lower())
 
     def test_002_post_creation(self):
         post_data = {
@@ -102,7 +102,7 @@ class ViewTestCase(SetupTearDownMixin, unittest.TestCase):
     def test_003_post_on_homepage(self):
         self.app.post('/login', data=USER_DATA)
         rv = self.app.get('/')
-        self.assertNotIn("there are no posts made yet. log in to make one!", rv.get_data(as_text=True).lower())
+        self.assertNotIn("there are no posts made yet", rv.get_data(as_text=True).lower())
         self.assertIn('test', rv.get_data(as_text=True).lower())
 
     def test_004_post_edit_post(self):
@@ -123,7 +123,7 @@ class ViewTestCase(SetupTearDownMixin, unittest.TestCase):
         self.app.post('/login', data=USER_DATA)
         self.app.get('detail/1/delete')
         rv = self.app.get('/')
-        self.assertIn("there are no posts made yet. log in to make one!", rv.get_data(as_text=True).lower())
+        self.assertIn("there are no posts made yet", rv.get_data(as_text=True).lower())
         self.assertEqual(Post.select().count(), 0)
 
 

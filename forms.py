@@ -24,7 +24,7 @@ def email_exists(form, field):
 class PostForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     date = DateField('Date: DD-MM-YYYY', validators=[DataRequired()], format='%d-%m-%Y')
-    time_spent = StringField('Time', validators=[DataRequired()])
+    time_spent = StringField('Time Spent', validators=[DataRequired()])
     what_i_learned = TextAreaField('What I Learned', validators=[DataRequired()])
     resources_to_remember = TextAreaField('Resources To Remember', validators=[DataRequired()])
 

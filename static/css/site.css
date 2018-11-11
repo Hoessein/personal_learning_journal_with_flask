@@ -237,7 +237,9 @@ input[type=submit] {
 .fixer-container {
   float: left;
   position: relative;
-  left: -50%;
+  left: -60%;
+
+
 }
 
 /*Notifications*/
@@ -246,14 +248,19 @@ input[type=submit] {
   padding: 10px 20px;
   border-radius: 4px;
   color: #ffffff;
+  align: center;
+
 }
 .success {
+  text-align: center;
+  align: center;
   background: #678f89;
   color: #ffffff;
   margin-top: 10px;
 
 }
 .error {
+  text-align: center;
   background: #ffbf00;
   color: #ffffff;
   margin-bottom: 20px;
@@ -271,12 +278,10 @@ input[type=submit] {
 }
 
 
-.h1=2 {
-	margin: 0 auto;
-	padding: 0 25px;
-
+.h1container {
+	text-align: center;
+    top: -60px;
 }
-
 
 
 
