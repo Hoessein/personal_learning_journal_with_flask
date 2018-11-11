@@ -13,11 +13,12 @@
     <body>
         <header> {% block title %} {% endblock %}
             <div class="container">
+
                     <a class="logo" href="{{ url_for('index') }}"><i class="material-icons">library_books</i></a>
                     <a class="button icon-left" href="{{ url_for('list') }}"><i class="material-icons">library_books</i>Entries</a>
 
-
                     {% if current_user.is_authenticated %}
+
                         <a class="button icon-right" href="{{ url_for('new_post') }}"><span>New Entry</span> <i class="material-icons">add</i></a>
 
                         <a class="button icon-right" href="{{ url_for('logout') }}"><span>Log Out</span> <i class="material-icons">add</i></a>
