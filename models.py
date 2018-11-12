@@ -5,7 +5,7 @@ from flask_login import UserMixin
 
 from peewee import *
 
-DATABASE = SqliteDatabase('social.db')
+DATABASE = SqliteDatabase('blog.db')
 
 
 class Post(Model):
