@@ -60,8 +60,7 @@ def new_post():
 
 @app.route('/')
 def index():
-    stream = models.Post.select().limit(5)
-    stream.order_by(models.Post.posted_at.asc())
+    stream = models.Post.select().limit(5).order_by(models.Post.posted_at.desc())
     return render_template('index.html', stream=stream)
 
 

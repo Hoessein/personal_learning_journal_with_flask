@@ -18,6 +18,7 @@ class Post(Model):
 
     class Meta:
         database = DATABASE
+        order_by = ('-posted_at',)
 
 
 class User(UserMixin, Model):

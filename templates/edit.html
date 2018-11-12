@@ -13,7 +13,6 @@
                         {{ form.hidden_tag() }}
 
                         {% for field in form %}
-                            {{ field.label }}
                             {{ render_field(field) }}
                         {% endfor %}
 
@@ -23,7 +22,6 @@
                 </div>
             </div>
         </section>
-
 
 {% endblock %}
 
