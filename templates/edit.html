@@ -12,7 +12,9 @@
                     <form method="POST" action="">
                         {{ form.hidden_tag() }}
 
-                        {% for field in form %}
+
+                        {% for field in form if field.widget.input_type != 'hidden' %}
+                        <p>{{ field.label }}</p>
                             {{ render_field(field) }}
                         {% endfor %}
 
